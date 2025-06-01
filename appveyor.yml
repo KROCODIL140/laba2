@@ -1,5 +1,0 @@
-language: python
-install:
-- pip install flask
-script:
-- python ./flaskapp/some_app.py
