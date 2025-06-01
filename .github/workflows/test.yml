@@ -1,31 +1,18 @@
-name: Windows Python CI
-
-on: [push, pull_request]  # Триггеры
+name: Run Flask App
+on: [push]
 
 jobs:
-  run-hello-world:
-    name: Run Hello World on Windows
-    runs-on: windows-latest  # Windows Server 2022
+  run-app:
+    runs-on: windows-latest
     
     steps:
-      # 1. Клонируем репозиторий
       - uses: actions/checkout@v4
       
-      # 2. Устанавливаем Python
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'  # Можно изменить на нужную версию
-      
-      # 3. (Опционально) Проверяем наличие файла
-      - name: Check file exists
+      - name: Install dependencies
         run: |
-          if not exist "hello.py" (
-            echo "Error: hello.py not found!"
-            exit 1
-          )
-          dir hello.py  # Выводим информацию о файле
+          python -m pip install flask
       
-      # 4. Запускаем скрипт
-      - name: Execute Python script
-        run: python some_app.py
+      - name: Run Flask app
+        run: |
+          cd flaskapp
+          python some_app.py
